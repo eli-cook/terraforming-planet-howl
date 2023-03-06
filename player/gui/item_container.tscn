@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0bqiawg8k8mo"]
+
+[ext_resource type="Texture2D" uid="uid://dqwd56gvin3s7" path="res://assets/experience/empty-item.png" id="1_syikh"]
+[ext_resource type="Script" path="res://player/gui/item_container.gd" id="2_8dqe2"]
+[ext_resource type="Texture2D" uid="uid://ces7olhckxp87" path="res://assets/attack/missile.png" id="2_o7ib6"]
+
+[node name="ItemContainer" type="TextureRect"]
+custom_minimum_size = Vector2(112, 94)
+offset_right = 112.0
+offset_bottom = 94.0
+texture = ExtResource("1_syikh")
+expand_mode = 1
+script = ExtResource("2_8dqe2")
+
+[node name="ItemTexture" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(100, 85)
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 106.0
+offset_bottom = 90.0
+texture = ExtResource("2_o7ib6")
+expand_mode = 1

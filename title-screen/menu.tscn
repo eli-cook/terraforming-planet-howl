@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3wi7m62t1ghx"]
+
+[ext_resource type="Script" path="res://title-screen/menu.gd" id="1_mamfo"]
+[ext_resource type="Texture2D" uid="uid://db2f8nf7ok8ld" path="res://assets/background/planethowl.png" id="2_1mpy8"]
+[ext_resource type="PackedScene" uid="uid://bnued8y3omiog" path="res://utility/basic_button.tscn" id="2_kfav6"]
+[ext_resource type="AudioStream" uid="uid://dt2m0qhgrrmdv" path="res://assets/sounds/bgm2.wav" id="3_dhlcj"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_mamfo")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_top = 1.0
+offset_right = 2033.0
+offset_bottom = 1144.0
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(610, 615)
+texture = ExtResource("2_1mpy8")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1986.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 80
+text = "Terraforming Planet Howl"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Play" parent="." instance=ExtResource("2_kfav6")]
+layout_mode = 0
+offset_left = 1427.0
+offset_top = 272.0
+offset_right = 1747.0
+offset_bottom = 362.0
+text = "Play
+"
+
+[node name="Quit" parent="." instance=ExtResource("2_kfav6")]
+layout_mode = 0
+offset_left = 1427.0
+offset_top = 443.0
+offset_right = 1747.0
+offset_bottom = 533.0
+text = "Quit"
+
+[node name="sound_music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("3_dhlcj")
+volume_db = -7.0
+autoplay = true
+
+[connection signal="click_end" from="Play" to="." method="_on_play_click_end"]
+[connection signal="click_end" from="Quit" to="." method="_on_quit_click_end"]

@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4c2mj4ewrpsq"]
+
+[ext_resource type="Script" path="res://player/attack/lipstick.gd" id="1_nyj41"]
+[ext_resource type="Texture2D" uid="uid://dl5woq7swtu8k" path="res://assets/attack/lipstick.png" id="2_4li4f"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_phyar"]
+radius = 4.99989
+height = 29.9728
+
+[node name="Lipstick" type="Area2D" groups=["attack"]]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_nyj41")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 4.71117
+texture = ExtResource("2_4li4f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.44049e-10, 0)
+rotation = -1.56812
+shape = SubResource("CapsuleShape2D_phyar")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

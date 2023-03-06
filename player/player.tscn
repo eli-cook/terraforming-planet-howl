@@ -1,0 +1,539 @@
+[gd_scene load_steps=25 format=3 uid="uid://dkr41a7oiad3"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_gul5w"]
+[ext_resource type="Texture2D" uid="uid://basrqtvsvmvex" path="res://assets/player/hero-idle.png" id="2_u2vet"]
+[ext_resource type="PackedScene" uid="uid://ccjydig3owxl2" path="res://utility/hurt_box.tscn" id="3_1jgxk"]
+[ext_resource type="Texture2D" uid="uid://d0hnuyn52uqj4" path="res://assets/player/hero-walk.png" id="3_6vqyr"]
+[ext_resource type="PackedScene" uid="uid://cwshl2uou8oag" path="res://player/attack/blast.tscn" id="4_ousa8"]
+[ext_resource type="PackedScene" path="res://utility/basic_button.tscn" id="8_ama1a"]
+[ext_resource type="AudioStream" uid="uid://l5uo6u4pgtag" path="res://assets/sounds/level-up.mp3" id="8_f2dnw"]
+[ext_resource type="Texture2D" uid="uid://cwvgu4xf3sevs" path="res://assets/experience/progressbaremptythin.png" id="8_ksbhl"]
+[ext_resource type="Texture2D" uid="uid://cp62iktq377af" path="res://assets/experience/heathbar-empty.png" id="8_sfipx"]
+[ext_resource type="AudioStream" uid="uid://jsnuoxs5gg0" path="res://assets/sounds/victory.mp3" id="9_0vrga"]
+[ext_resource type="Texture2D" uid="uid://djlquammggiom" path="res://assets/experience/healthbar-full.png" id="9_50faj"]
+[ext_resource type="Texture2D" uid="uid://b4j5bjmuxn1bg" path="res://assets/experience/progressbarfullthin.png" id="9_f8yt4"]
+[ext_resource type="AudioStream" uid="uid://ywp2ulognkfp" path="res://assets/sounds/lose.mp3" id="9_ji6k1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3n8wr"]
+radius = 8.0
+height = 42.0
+
+[sub_resource type="Animation" id="Animation_nmxqb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_u2vet")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_mfowh"]
+resource_name = "idle-left"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_u2vet")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_47e40"]
+resource_name = "idle-right"
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_u2vet")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_ok7vp"]
+resource_name = "walk-left"
+length = 0.6
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_6vqyr")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_bycjw"]
+resource_name = "walk-right"
+length = 0.6
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_6vqyr")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u3185"]
+_data = {
+"RESET": SubResource("Animation_nmxqb"),
+"idle-left": SubResource("Animation_mfowh"),
+"idle-right": SubResource("Animation_47e40"),
+"walk-left": SubResource("Animation_ok7vp"),
+"walk-right": SubResource("Animation_bycjw")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5s4b"]
+size = Vector2(23, 44)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_apl1e"]
+radius = 587.031
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l3yay"]
+radius = 55.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_67cmy"]
+radius = 14.3178
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_gul5w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_u2vet")
+hframes = 5
+
+[node name="Muzzle" type="Marker2D" parent="Sprite2D"]
+position = Vector2(-29, 0)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("CapsuleShape2D_3n8wr")
+debug_color = Color(0.356863, 0.490196, 0.980392, 0.419608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u3185")
+}
+
+[node name="HurtBox" parent="." instance=ExtResource("3_1jgxk")]
+position = Vector2(-18, -9)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(18, 9)
+shape = SubResource("RectangleShape2D_r5s4b")
+debug_color = Color(0.941176, 0.117647, 0.533333, 0.419608)
+
+[node name="Blast" parent="." instance=ExtResource("4_ousa8")]
+position = Vector2(-39, 3)
+
+[node name="Attack" type="Node2D" parent="."]
+
+[node name="BlastTimer" type="Timer" parent="Attack"]
+wait_time = 1.5
+
+[node name="BlastAttackTimer" type="Timer" parent="Attack/BlastTimer"]
+wait_time = 0.075
+
+[node name="MissileTimer" type="Timer" parent="Attack"]
+unique_name_in_owner = true
+wait_time = 2.0
+
+[node name="MissileAttackTimer" type="Timer" parent="Attack/MissileTimer"]
+unique_name_in_owner = true
+wait_time = 0.2
+
+[node name="LipstickTimer" type="Timer" parent="Attack"]
+unique_name_in_owner = true
+wait_time = 2.0
+
+[node name="LipstickAttackTimer" type="Timer" parent="Attack/LipstickTimer"]
+wait_time = 0.2
+
+[node name="OrbitTimer" type="Timer" parent="Attack"]
+
+[node name="OrbitAttackTimer" type="Timer" parent="Attack/OrbitTimer"]
+wait_time = 0.5
+
+[node name="EnemyDetectionArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea"]
+position = Vector2(-2, -2)
+shape = SubResource("CircleShape2D_apl1e")
+
+[node name="GUILayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" type="Control" parent="GUILayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 3.0
+offset_top = 1.0
+offset_right = 1983.0
+offset_bottom = 1081.0
+
+[node name="HealthBar" type="TextureProgressBar" parent="GUILayer/GUI"]
+self_modulate = Color(1, 1, 1, 0.392157)
+layout_mode = 0
+offset_left = 890.0
+offset_top = 620.0
+offset_right = 1090.0
+offset_bottom = 650.0
+max_value = 50.0
+texture_under = ExtResource("8_sfipx")
+texture_progress = ExtResource("9_50faj")
+
+[node name="LevelUp" type="Panel" parent="GUILayer/GUI"]
+process_mode = 2
+visible = false
+layout_mode = 0
+offset_left = 257.0
+offset_top = -826.0
+offset_right = 908.0
+offset_bottom = -132.0
+rotation = 0.00142438
+
+[node name="LabelLevelUp" type="Label" parent="GUILayer/GUI/LevelUp"]
+layout_mode = 0
+offset_right = 650.0
+offset_bottom = 141.0
+theme_override_font_sizes/font_size = 50
+text = "Level Up!
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradeOptions" type="VBoxContainer" parent="GUILayer/GUI/LevelUp"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 130.0
+offset_right = 628.0
+offset_bottom = 310.0
+theme_override_constants/separation = 20
+
+[node name="sound_level_up" type="AudioStreamPlayer" parent="GUILayer/GUI/LevelUp"]
+stream = ExtResource("8_f2dnw")
+volume_db = -7.0
+pitch_scale = 2.0
+
+[node name="DeathPanel" type="Panel" parent="GUILayer/GUI"]
+process_mode = 2
+layout_mode = 0
+offset_left = 256.0
+offset_top = -852.0
+offset_right = 901.0
+offset_bottom = -66.0
+
+[node name="LabelResult" type="Label" parent="GUILayer/GUI/DeathPanel"]
+layout_mode = 0
+offset_right = 638.0
+offset_bottom = 114.0
+theme_override_font_sizes/font_size = 50
+text = "Result"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonMenu" parent="GUILayer/GUI/DeathPanel" instance=ExtResource("8_ama1a")]
+layout_mode = 0
+offset_left = 201.0
+offset_top = 654.0
+offset_right = 462.0
+offset_bottom = 731.0
+text = "Menu
+"
+
+[node name="sound_victory" type="AudioStreamPlayer" parent="GUILayer/GUI/DeathPanel"]
+stream = ExtResource("9_0vrga")
+volume_db = -7.0
+
+[node name="sound_lose" type="AudioStreamPlayer" parent="GUILayer/GUI/DeathPanel"]
+stream = ExtResource("9_ji6k1")
+volume_db = -7.0
+
+[node name="ExperienceBar" type="TextureProgressBar" parent="GUILayer/GUI"]
+layout_mode = 0
+offset_right = 1980.0
+offset_bottom = 30.0
+texture_under = ExtResource("8_ksbhl")
+texture_progress = ExtResource("9_f8yt4")
+
+[node name="lbl_level" type="Label" parent="GUILayer/GUI/ExperienceBar"]
+layout_mode = 0
+offset_left = 1900.0
+offset_right = 1980.0
+offset_bottom = 35.0
+theme_override_font_sizes/font_size = 20
+text = "Level 0"
+
+[node name="LabelTimer" type="Label" parent="GUILayer/GUI"]
+layout_mode = 0
+offset_left = 980.0
+offset_top = 51.0
+offset_right = 1110.0
+offset_bottom = 123.0
+theme_override_font_sizes/font_size = 50
+text = "00:00
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CollectedWeapons" type="GridContainer" parent="GUILayer/GUI"]
+layout_mode = 0
+offset_top = 44.0
+offset_right = 900.0
+offset_bottom = 124.0
+columns = 10
+
+[node name="CollectedUpgrades" type="GridContainer" parent="GUILayer/GUI"]
+layout_mode = 0
+offset_top = 145.0
+offset_right = 900.0
+offset_bottom = 225.0
+columns = 10
+
+[node name="GrabArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea"]
+shape = SubResource("CircleShape2D_l3yay")
+debug_color = Color(0.827451, 0.341176, 0.533333, 0.419608)
+
+[node name="CollectArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea"]
+shape = SubResource("CircleShape2D_67cmy")
+
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+[connection signal="timeout" from="Attack/BlastTimer" to="." method="_on_blast_timer_timeout"]
+[connection signal="timeout" from="Attack/BlastTimer/BlastAttackTimer" to="." method="_on_blast_attack_timer_timeout"]
+[connection signal="timeout" from="Attack/MissileTimer" to="." method="_on_missile_timer_timeout"]
+[connection signal="timeout" from="Attack/MissileTimer/MissileAttackTimer" to="." method="_on_missile_attack_timer_timeout"]
+[connection signal="timeout" from="Attack/LipstickTimer" to="." method="_on_lipstick_timer_timeout"]
+[connection signal="timeout" from="Attack/LipstickTimer/LipstickAttackTimer" to="." method="_on_lipstick_attack_timer_timeout"]
+[connection signal="timeout" from="Attack/OrbitTimer" to="." method="_on_orbit_timer_timeout"]
+[connection signal="timeout" from="Attack/OrbitTimer/OrbitAttackTimer" to="." method="_on_orbit_attack_timer_timeout"]
+[connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
+[connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
+[connection signal="click_end" from="GUILayer/GUI/DeathPanel/ButtonMenu" to="." method="_on_button_menu_click_end"]
+[connection signal="area_entered" from="GrabArea" to="." method="_on_grab_area_area_entered"]
+[connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]
+
+[editable path="HurtBox"]
+[editable path="Blast"]

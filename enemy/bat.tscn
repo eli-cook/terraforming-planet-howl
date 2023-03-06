@@ -1,0 +1,135 @@
+[gd_scene load_steps=11 format=3 uid="uid://c210qvggjd0qi"]
+
+[ext_resource type="Texture2D" uid="uid://d3gu8inrno2dt" path="res://assets/enemy/bat-fly.png" id="1_2cn4j"]
+[ext_resource type="Script" path="res://enemy/bat.gd" id="1_4pywu"]
+[ext_resource type="PackedScene" uid="uid://ccjydig3owxl2" path="res://utility/hurt_box.tscn" id="2_iil20"]
+[ext_resource type="PackedScene" uid="uid://da3huxwmn6em5" path="res://utility/hit_box.tscn" id="3_5jfpp"]
+
+[sub_resource type="Animation" id="Animation_4a05k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_2cn4j")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_dql40"]
+resource_name = "bat-fly"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_2cn4j")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_61gpc"]
+_data = {
+"RESET": SubResource("Animation_4a05k"),
+"bat-fly": SubResource("Animation_dql40")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8f214"]
+radius = 9.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4jbsw"]
+radius = 12.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dolss"]
+radius = 8.0
+
+[node name="Bat" type="CharacterBody2D"]
+collision_layer = 5
+collision_mask = 5
+script = ExtResource("1_4pywu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2cn4j")
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_61gpc")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_8f214")
+
+[node name="HurtBox" parent="." instance=ExtResource("2_iil20")]
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource("CapsuleShape2D_4jbsw")
+debug_color = Color(0.686275, 0.486275, 0.317647, 0.419608)
+
+[node name="HitBox" parent="." instance=ExtResource("3_5jfpp")]
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+shape = SubResource("CapsuleShape2D_dolss")
+debug_color = Color(0.717647, 0.345098, 0.85098, 0.419608)
+
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+
+[editable path="HurtBox"]
+[editable path="HitBox"]

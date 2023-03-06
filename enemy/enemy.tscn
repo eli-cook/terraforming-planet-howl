@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://bdr8mvchx2cst"]
+
+[ext_resource type="Script" path="res://enemy/enemy.gd" id="1_fqx46"]
+[ext_resource type="Texture2D" uid="uid://dns3j40plqtpk" path="res://assets/enemy/bug.png" id="2_cbv31"]
+[ext_resource type="PackedScene" uid="uid://ccjydig3owxl2" path="res://utility/hurt_box.tscn" id="2_lqj4j"]
+[ext_resource type="PackedScene" uid="uid://da3huxwmn6em5" path="res://utility/hit_box.tscn" id="4_xepkm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4xwic"]
+radius = 5.0
+height = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_68vvt"]
+radius = 17.0294
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lregc"]
+radius = 11.0
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 5
+collision_mask = 5
+script = ExtResource("1_fqx46")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_cbv31")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_4xwic")
+debug_color = Color(0.360784, 0.482353, 1, 0.419608)
+
+[node name="HurtBox" parent="." instance=ExtResource("2_lqj4j")]
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource("CircleShape2D_68vvt")
+debug_color = Color(0.921569, 0.25098, 0.321569, 0.419608)
+
+[node name="HitBox" parent="." instance=ExtResource("4_xepkm")]
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_lregc")
+debug_color = Color(0.113725, 0.635294, 0.345098, 0.419608)
+
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+
+[editable path="HurtBox"]
+[editable path="HitBox"]

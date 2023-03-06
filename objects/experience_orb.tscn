@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://te7vxvv3r628"]
+
+[ext_resource type="Script" path="res://objects/experience_orb.gd" id="1_4m1g3"]
+[ext_resource type="Texture2D" uid="uid://cj43jb4fqj7uu" path="res://assets/experience/exp_green.png" id="2_xrmd5"]
+[ext_resource type="AudioStream" uid="uid://b6oi4a0n2vccr" path="res://assets/sounds/exp_collected.mp3" id="3_ci8dt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_23h7o"]
+
+[node name="ExperienceOrb" type="Area2D" groups=["loot"]]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_4m1g3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_xrmd5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_23h7o")
+
+[node name="SoundCollected" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ci8dt")
+volume_db = -14.236
+
+[connection signal="finished" from="SoundCollected" to="." method="_on_sound_collected_finished"]

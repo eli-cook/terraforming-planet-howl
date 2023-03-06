@@ -1,0 +1,92 @@
+[gd_scene load_steps=15 format=3 uid="uid://b64fm87esdjyf"]
+
+[ext_resource type="Texture2D" uid="uid://dhh2psry7ij8p" path="res://assets/background/background.png" id="1_027gd"]
+[ext_resource type="PackedScene" uid="uid://dkr41a7oiad3" path="res://player/player.tscn" id="2_pk6td"]
+[ext_resource type="PackedScene" uid="uid://bdr8mvchx2cst" path="res://enemy/enemy.tscn" id="3_k0cju"]
+[ext_resource type="PackedScene" uid="uid://nejq8xssa6tv" path="res://enemy/enemy_spawner.tscn" id="3_snfrv"]
+[ext_resource type="Script" path="res://utility/spawn_info.gd" id="5_kfyxn"]
+[ext_resource type="PackedScene" uid="uid://c210qvggjd0qi" path="res://enemy/bat.tscn" id="6_7pl24"]
+[ext_resource type="PackedScene" uid="uid://bd6t0ovwa4h3h" path="res://enemy/centipede.tscn" id="7_1keli"]
+[ext_resource type="AudioStream" uid="uid://dt2m0qhgrrmdv" path="res://assets/sounds/bgm2.wav" id="8_40vjf"]
+[ext_resource type="Script" path="res://world/sound_music.gd" id="8_s6jxd"]
+
+[sub_resource type="Resource" id="Resource_roidp"]
+script = ExtResource("5_kfyxn")
+name = "Bug Intial Wave"
+time_start = 0
+time_end = 300
+enemy = ExtResource("3_k0cju")
+enemy_num = 2
+enemy_spawn_delay = 0
+active = true
+
+[sub_resource type="Resource" id="Resource_jt5oy"]
+script = ExtResource("5_kfyxn")
+name = "Bat Swarms"
+time_start = 15
+time_end = 300
+enemy = ExtResource("6_7pl24")
+enemy_num = 10
+enemy_spawn_delay = 15
+active = true
+
+[sub_resource type="Resource" id="Resource_5kyx1"]
+script = ExtResource("5_kfyxn")
+name = "Bats primary enemy now"
+time_start = 300
+time_end = 600
+enemy = ExtResource("6_7pl24")
+enemy_num = 3
+enemy_spawn_delay = 0
+active = true
+
+[sub_resource type="Resource" id="Resource_76hns"]
+script = ExtResource("5_kfyxn")
+name = "Centipedes"
+time_start = 90
+time_end = 300
+enemy = ExtResource("7_1keli")
+enemy_num = 2
+enemy_spawn_delay = 5
+active = true
+
+[sub_resource type="Resource" id="Resource_uob6h"]
+script = ExtResource("5_kfyxn")
+name = "Centipedes ramp up at 5 min"
+time_start = 300
+time_end = 600
+enemy = ExtResource("7_1keli")
+enemy_num = 3
+enemy_spawn_delay = 5
+active = true
+
+[node name="World" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_027gd")
+
+[node name="Player" parent="." groups=["player"] instance=ExtResource("2_pk6td")]
+
+[node name="CollisionShape2D" parent="Player/EnemyDetectionArea" index="0"]
+visible = false
+
+[node name="Area2D" type="Area2D" parent="Player"]
+position = Vector2(-39, 3)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("3_snfrv")]
+spawns = Array[ExtResource("5_kfyxn")]([SubResource("Resource_roidp"), SubResource("Resource_jt5oy"), SubResource("Resource_5kyx1"), SubResource("Resource_76hns"), SubResource("Resource_uob6h")])
+
+[node name="Loot" type="Node2D" parent="." groups=["loot"]]
+
+[node name="sound_music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("8_40vjf")
+volume_db = -7.0
+autoplay = true
+script = ExtResource("8_s6jxd")
+
+[connection signal="player_death" from="Player" to="sound_music" method="_on_player_player_death"]
+
+[editable path="Player"]
+[editable path="Player/HurtBox"]
+[editable path="Player/Blast"]
